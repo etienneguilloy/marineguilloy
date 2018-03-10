@@ -30,29 +30,22 @@ class PhotoController extends Controller
     
     if ($request->hasFile('photoFile') && $request->file('photoFile')->isValid()) {
       
-      $path = $request->photoFile->store('photos/'.$request->input('album_id'), 'public');
+      $folder = sha1(file_get_contents($request->photoFile->path()));
       
-      /*$miniature = $request->input('miniature');
-      $img = $miniature;
-      $img = str_replace('data:image/jpeg;base64,', '', $img);
-      $img = str_replace(' ', '+', $img);
-      $data = base64_decode($img);
+      $miniature = Photo::resizeImg($request->photoFile->path());
       
-      $tabPath = pathinfo($path);
-      $filename = $tabPath['filename'];
+      $path = 'photos/'.$request->input('album_id').'/'.$folder;
+      $request->photoFile->storeAs($path, 'full.'.$request->photoFile->extension(),'public');
       
-      $pathMin = 'photos/'.$request->input('album_id').'/'.'min_'.$filename.'.jpg';
-      Storage::disk('public')->put($pathMin, $data);*/
+      Storage::disk('public')->put($path.'/min.jpeg', $miniature);
       
       $photo = new Photo;
       $photo->libel = ucfirst(strtolower($request->input('libel')));
       $photo->url = $path;
-      // $photo->urlMiniature = $pathMin;
       $photo->album_id = $request->input('album_id');
       $photo->save();
       
-      $photo->urlFull = asset('storage/'.$photo->url);
-      // $photo->urlFullMin = asset('storage/'.$photo->urlMiniature);
+      $photo->urlFull = asset('storage/'.$photo->url.'/min.jpeg');
       
        return response()->json($photo->toJson());
       

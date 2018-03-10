@@ -26,7 +26,6 @@ class PhotoObserver
      */
     public function deleting(Photo $photo)
     {
-        Storage::disk('public')->delete($photo->url);
-        // Storage::disk('public')->delete($photo->urlMiniature);
+        Storage::disk('public')->deleteDirectory($photo->url);
     }
 }

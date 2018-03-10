@@ -13,7 +13,7 @@ class Album extends Model
         $photos = $album->photos()->orderBy('vitrine','=',1, 'desc')->orderBy('created_at', 'desc')->get();;
         if($photos){
           foreach($photos as $photo){
-            $photo->urlFull = asset('storage/'.$photo->url);
+            $photo->urlFull = asset('storage/'.$photo->url.'/min.jpeg');
           }
         }
         $album->photos = $photos;

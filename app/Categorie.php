@@ -23,7 +23,7 @@ class Categorie extends Model
             $urlFullVitrine = asset('storage/photos/no_picture.jpg');
             if($photosVitrine){
               foreach($photosVitrine as $photoVitrine){
-                $urlFullVitrine = asset('storage/'.$photoVitrine->url);
+                $urlFullVitrine = asset('storage/'.$photoVitrine->url.'/min.jpeg');
               }
             }
             $album->photoVitrine = $urlFullVitrine;
