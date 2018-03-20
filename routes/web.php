@@ -12,6 +12,9 @@
 */
 
 Route::get('/', 'AccueilController@index')->name('accueil');
+Route::get('/categories', 'AccueilController@categories')->name('categories');
+Route::get('/albums', 'AccueilController@albums')->name('albums');
+Route::get('/photos', 'AccueilController@photos')->name('photos');
 
 Auth::routes();
 

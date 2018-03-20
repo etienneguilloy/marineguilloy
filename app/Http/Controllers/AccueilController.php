@@ -28,10 +28,21 @@ class AccueilController extends Controller
      */
     public function index()
     {   
-        /*$photos = PhotoUtils::getPhotoFront();              
+        return view('welcome');
+    }
+
+    public function categories(){
         $categories = CategorieUtils::getCategoriesAlbumsActif();
+        return response()->json($categories);
+    } 
+
+    public function albums(){
         $albums = AlbumUtils::getAlbumsActif();
-        
+        return response()->json($albums);
+    }
+
+    public function photos(){
+        $photos = PhotoUtils::getPhotoFront();
         if($photos){
             foreach($photos as $key=>$photo){
               $photo->src = asset('storage/'.$photo->url.'/full.jpeg');
@@ -41,8 +52,8 @@ class AccueilController extends Controller
               $photo->w = $width;
               $photo->h = $height;
             }
-        }*/
-        return view('welcome');
+        }
+        return response()->json($photos);
     }
     
     

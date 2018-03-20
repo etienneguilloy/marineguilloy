@@ -215,6 +215,7 @@
           photos : [],
           photosAll : [],
           albums : [],
+          albumsAll: [],
           categories : [],
           selectCategorie : 'all',
           selectAlbum : 'all',
@@ -242,9 +243,15 @@
                 
                 if(id === 'all'){
                     galeryVue.photos = galeryVue.photosAll;
+                    galeryVue.albums = galeryVue.albumsAll;
+                    galeryVue.selectAlbum = 'all';
                 }
                 else{
-                    this.photos = this.photosAll.filter(function(item) { 
+                    galeryVue.photos = galeryVue.photosAll.filter(function(item) { 
+                       return item.categorie_id === id;  
+                    });
+
+                    galeryVue.albums = galeryVue.albumsAll.filter(function(item) { 
                        return item.categorie_id === id;  
                     });
                 }
@@ -259,7 +266,7 @@
                     galeryVue.photos = galeryVue.photosAll;
                 }
                 else{
-                    this.photos = this.photosAll.filter(function(item) { 
+                    galeryVue.photos = galeryVue.photosAll.filter(function(item) { 
                        return item.album_id === id;  
                     });
                 }
@@ -268,9 +275,33 @@
                 }, 1);
             }
         },
-        mounted(){ 
+        mounted(){
+          axios.get('/categories')
+          .then(function (response) {
+            galeryVue.categories = response.data;
+          })
+          .catch(function (error) {
+          });
+
+          axios.get('/albums')
+          .then(function (response) {
+            galeryVue.albums = galeryVue.albumsAll = response.data;
+          })
+          .catch(function (error) {
+          });
+
+          axios.get('/photos')
+          .then(function (response) {
+            galeryVue.photosAll = galeryVue.photos = response.data;
+            window.setTimeout(function() {
+                   $('.lazy').Lazy();
+            }, 1);
+          })
+          .catch(function (error) {
+          });
         }
       })
     </script>
 </body>
 </html>
+
