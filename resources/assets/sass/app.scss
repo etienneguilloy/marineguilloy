@@ -122,3 +122,29 @@ div.all-center{
 /**
 * Fin Album administration
 */
+
+/**
+* Galery
+*/
+img.galeryImg{
+    cursor:pointer;
+}
+
+.photosGalerie-move {
+  transition: transform 1s;
+}
+
+.photosGalerie-item {
+  transition: all 1s;
+  display: inline-block;
+}
+.photosGalerie-enter, .photosGalerie-leave-to{
+  opacity: 0;
+  transform: translateY(30px);
+}
+.photosGalerie-leave-active {
+  position: absolute;
+}
+/**
+* Fin galery
+*/

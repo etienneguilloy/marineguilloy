@@ -10,7 +10,7 @@ class Album extends Model
     public static function albumForAdministration($id){
       $album = self::find($id);
       if($album){
-        $photos = $album->photos()->orderBy('vitrine','=',1, 'desc')->orderBy('created_at', 'desc')->get();;
+        $photos = $album->photos()->orderBy('vitrine','=',1, 'desc')->orderBy('created_at', 'desc')->get();
         if($photos){
           foreach($photos as $photo){
             $photo->urlFull = asset('storage/'.$photo->url.'/min.jpeg');
