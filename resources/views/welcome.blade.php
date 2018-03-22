@@ -205,10 +205,6 @@
     <script src="{{ asset('js/jquery.lazy.min.js') }}"></script> 
         
     <script>
-      $(function() {
-        $('.lazy').Lazy();
-      });
-      
       var galeryVue = new Vue({
         el: '#app_galery',
         data: {
@@ -255,9 +251,6 @@
                        return item.categorie_id === id;  
                     });
                 }
-                window.setTimeout(function() {
-                   $('.lazy').Lazy();
-                }, 1);
                
             },
             setPhotoAlbum : function(id){
@@ -270,9 +263,6 @@
                        return item.album_id === id;  
                     });
                 }
-                window.setTimeout(function() {
-                   $('.lazy').Lazy();
-                }, 1);
             }
         },
         mounted(){
@@ -294,7 +284,13 @@
           .then(function (response) {
             galeryVue.photosAll = galeryVue.photos = response.data;
             window.setTimeout(function() {
-                   $('.lazy').Lazy();
+                  $('.lazy').Lazy({
+                    afterLoad: function(element) {
+                        // called after an element was successfully handled
+                        galeryVue.photosAll[element[0].dataset.index].isLoad = 1;
+                    },
+
+                  });
             }, 1);
           })
           .catch(function (error) {

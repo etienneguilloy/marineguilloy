@@ -15,8 +15,8 @@
       </p>
         <transition-group name="photosGalerie" tag="div" class="row space-row">
             <div class="col-6 col-md-3 all-center space-col" v-for="(photo, index) in photos" :key="photo.id">
-                <img v-bind:data-src="photo.srcMin" class="img-thumbnail galeryImg lazy" v-on:click="showGalery(index)" />
-                <!--<img v-bind:src="photo.srcMin" class="img-thumbnail galeryImg lazy" v-on:click="showGalery(index)" />-->
+                <img v-if="photo.isLoad" v-bind:src="photo.srcMin" class="img-thumbnail galeryImg lazy" v-on:click="showGalery(index)" />
+                <img v-else v-bind:data-index="index" v-bind:data-src="photo.srcMin" class="img-thumbnail galeryImg lazy" v-on:click="showGalery(index)" />
             </div>
         </transition-group>
     </div>

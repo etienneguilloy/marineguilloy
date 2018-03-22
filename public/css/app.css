@@ -3856,10 +3856,6 @@ tbody.collapse.show {
   content: "Browse";
 }
 
-.custom-file-input:lang(fr) ~ .custom-file-label::after {
-  content: "Parcourir";
-}
-
 .custom-file-label {
   position: absolute;
   top: 0;

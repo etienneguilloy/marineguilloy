@@ -10,7 +10,7 @@ class PhotoUtils
         return DB::table('photos')
                         ->leftJoin('albums', 'photos.album_id', '=', 'albums.id')
                         ->leftJoin('categories', 'albums.categorie_id', '=', 'categories.id')
-                        ->select('photos.*', 'categories.id as categorie_id')
+                        ->select(DB::raw('photos.*, categories.id as categorie_id, 0 as isLoad'))
                         ->where('albums.actif', '=', 1)
                         ->get();
     }
